@@ -23,13 +23,14 @@ public class JpaStudyApplication {
             transaction.begin();
 
             em.persist(Case001.MemberEnt.builder()
-                    .id(1L)
+                    .memberId(1L)
+                    .memberName("홍길동")
                     .build());
 
             try {
                 System.out.println("Hello world");
                 transaction.commit();
-            }catch (Throwable e) {
+            } catch (Throwable e) {
                 transaction.rollback();
                 throw new RuntimeException(e);
             }
