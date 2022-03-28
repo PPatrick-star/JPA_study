@@ -19,6 +19,7 @@ dependencies {
 
     implementation 'ch.qos.logback:logback-classic:1.2.3'
 
+    runtimeOnly 'com.h2database:h2:1.4.200'
 
     testAnnotationProcessor'org.projectlombok:lombok:1.18.20'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
