@@ -15,11 +15,22 @@ public class Case001 {
     @Entity
     public static class MemberEnt {
         @Id
-        private Long id;
+        private Long memberId;
+        private String memberName;
 
         @Builder
-        MemberEnt(Long id) {
-            this.id = id;
+        MemberEnt(Long memberId, String memberName) {
+            this.memberId = memberId;
+            this.memberName = memberName;
+        }
+
+
+        /**
+         * 회원의 이름을 변경합니다
+         * @param memberName - 변경할 새이름을 지정합니다
+         */
+        public void rename (String memberName) {
+            this.memberName = memberName;
         }
     }
 }
