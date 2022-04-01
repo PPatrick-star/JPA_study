@@ -28,6 +28,7 @@ public class Case001 {
         /**
          * 회원의 이름을 변경합니다
          * @param memberName - 변경할 새이름을 지정합니다
+         * @see //velog.io/@aidenshin/내가-생각하는-JPA-엔티티-작성-원칙
          */
         public void rename (String memberName) {
             this.memberName = memberName;
