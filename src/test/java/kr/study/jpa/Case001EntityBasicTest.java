@@ -3,10 +3,11 @@ package kr.study.jpa;
 import kr.study.jpa.domain.Case001.MemberEnt;
 import kr.study.jpa.test.support.EntityManagerSupplier;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Condition;
 import org.junit.jupiter.api.Test;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -22,10 +23,32 @@ public class Case001EntityBasicTest {
 
         EntityManagerFactory emf = EntityManagerSupplier.createEntityManagerFactory();
 
-        MemberEnt member = MemberEnt.builder()
-                .memberId(givenMemberId)
-                .memberName(givenMemberName)
-                .build();
+        EntityManager em = emf.createEntityManager();
+
+        MemberEnt member;
+
+        try {
+
+            EntityTransaction transaction = em.getTransaction();
+            transaction.begin();
+
+            try {
+                member = MemberEnt.builder()
+                        .memberId(givenMemberId)
+                        .memberName(givenMemberName)
+                        .build();
+                em.persist(member);
+                log.debug("persist a new member");
+                transaction.commit();
+
+            } catch (Throwable th ) {
+                transaction.rollback();
+                throw new RuntimeException(th);
+            }
+        } finally {
+            em.close();
+        }
+
 
         assertThat(member).isNotNull();
         assertThat(member.getMemberId()).isNotNull().isEqualTo(givenMemberId);
